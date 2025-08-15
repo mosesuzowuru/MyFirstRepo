@@ -1,0 +1,5 @@
+Brief Introduction About Myself
+
+Hello! My name is Chibuzor Moses Uzowuru. I am a passionate learner currently exploring the world of software development and version control systems. I believe in continuous learning and improving my technical skills.
+
+I am currently learning GitHub and version control as part of my development journey. This file was created as part of my first GitHub repository exercise, and I'm excited to apply these skills in real-world projects.
