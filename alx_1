@@ -1,0 +1,192 @@
+#!/bin/bash
+
+# GitHub Learning Tasks - File Creator Script
+# This script creates all required files, you handle git operations
+
+echo "=============================================="
+echo "    GitHub Tasks - File Creator Script"  
+echo "=============================================="
+echo
+
+# Get user information
+echo -n "Enter your full name: "
+read FULL_NAME
+
+echo -n "Enter your GitHub username: "
+read GITHUB_USERNAME
+
+echo
+echo "Creating files for all GitHub learning tasks..."
+echo
+
+# =============================================================================
+# TASK 0: Create introduction.txt and update README.md
+# =============================================================================
+echo "📝 TASK 0: Creating introduction.txt..."
+
+cat > introduction.txt << EOF
+Brief Introduction About Myself
+
+Hello! My name is $FULL_NAME. I am a passionate learner currently exploring the world of software development and version control systems. I believe in continuous learning and improving my technical skills.
+
+I am currently learning GitHub and version control as part of my development journey. This file was created as part of my first GitHub repository exercise, and I'm excited to apply these skills in real-world projects.
+EOF
+
+echo "✓ introduction.txt created"
+
+# Update README.md
+echo "📝 Updating README.md..."
+echo "" >> README.md
+echo "This is my first repository created as part of a GitHub learning task." >> README.md
+echo "✓ README.md updated"
+
+echo
+echo "🔄 Now you can run:"
+echo "   git add introduction.txt README.md"
+echo "   git commit -m \"Added introduction file\""
+echo "   git push origin main"
+echo
+echo -n "Press Enter when you've done the above git operations..."
+read
+
+# =============================================================================
+# TASK 1: Create branch and goals.txt
+# =============================================================================
+echo
+echo "📝 TASK 1: Creating feature-update branch and goals.txt..."
+
+# Create and switch to new branch
+git checkout -b feature-update
+echo "✓ Created and switched to feature-update branch"
+
+# Create goals.txt
+cat > goals.txt << EOF
+My Personal and Academic Goals for Next Year
+
+1. Master version control systems like Git and GitHub
+2. Learn advanced programming concepts and best practices  
+3. Contribute to open-source projects
+4. Build a strong portfolio of coding projects
+5. Develop better collaboration and teamwork skills
+6. Stay updated with the latest technology trends
+7. Improve problem-solving and debugging abilities
+8. Learn new programming languages and frameworks
+9. Network with other developers and tech professionals
+10. Complete challenging coding projects and certifications
+EOF
+
+echo "✓ goals.txt created in feature-update branch"
+
+echo
+echo "🔄 Now you can run:"
+echo "   git add goals.txt"
+echo "   git commit -m \"Added goals list\""
+echo "   git push origin feature-update"
+echo "   Then go to GitHub and create a Pull Request from feature-update to main"
+echo
+echo -n "Press Enter when you've done the above operations and merged the PR..."
+read
+
+# Switch back to main and pull changes
+git checkout main
+git pull origin main
+echo "✓ Switched back to main branch"
+
+# =============================================================================
+# TASK 2: Fork and contribute (requires manual forking first)
+# =============================================================================
+echo
+echo "📝 TASK 2: Setting up for forking task..."
+echo
+echo "🔄 MANUAL STEP REQUIRED:"
+echo "   1. Go to: https://github.com/alx-tools/learn_github_collaboration"
+echo "   2. Click 'Fork' button to fork the repository"
+echo "   3. This creates a copy under your GitHub account"
+echo
+echo -n "Press Enter when you've forked the repository..."
+read
+
+# Clone the forked repository  
+cd ..
+echo "📥 Cloning your forked repository..."
+git clone "https://github.com/$GITHUB_USERNAME/learn_github_collaboration.git"
+cd learn_github_collaboration
+
+echo "📝 Adding your name to contributors..."
+
+# Check if README.md exists and add name
+if [ -f "README.md" ]; then
+    # Check if contributors section exists
+    if grep -q "Names of contributors" README.md; then
+        # Add name after the existing header
+        sed -i "/Names of contributors/a - $FULL_NAME" README.md
+    else
+        # Create contributors section
+        echo "" >> README.md
+        echo "## Names of contributors" >> README.md
+        echo "- $FULL_NAME" >> README.md
+    fi
+else
+    # Create README.md if it doesn't exist
+    cat > README.md << EOF
+# Learn GitHub Collaboration
+
+This repository is for learning GitHub collaboration.
+
+## Names of contributors
+- $FULL_NAME
+EOF
+fi
+
+echo "✓ Added your name to contributors list"
+
+echo
+echo "🔄 Now you can run:"
+echo "   git add README.md"
+echo "   git commit -m \"Added my name to contributors list\""
+echo "   git push origin main"
+echo "   Then create a Pull Request from your fork to the original repository"
+echo
+echo -n "Press Enter when you've done the above operations..."
+read
+
+# =============================================================================
+# TASK 3: Create learning.txt in MyFirstRepo
+# =============================================================================
+echo
+echo "📝 TASK 3: Creating learning.txt..."
+
+# Go back to MyFirstRepo
+cd ../MyFirstRepo
+
+cat > learning.txt << EOF
+Course Learning Reflection
+
+Through this comprehensive GitHub learning exercise, I have gained invaluable hands-on experience with version control and collaborative software development practices.
+
+The key concepts I've mastered include creating and managing repositories, working effectively with branches and pull requests, collaborating through forking workflows, and using essential Git commands for version control. I've also developed a solid understanding of the complete GitHub workflow from local development to remote collaboration.
+
+This practical experience has significantly enhanced my understanding of how modern software development teams collaborate, and I now feel confident using these tools in real-world development scenarios. The skills I've learned here will be fundamental to my future work as a developer.
+EOF
+
+echo "✓ learning.txt created"
+
+echo
+echo "🔄 Final step - you can run:"
+echo "   git add learning.txt"
+echo "   git commit -m \"Added learning.txt with course reflection\""
+echo "   git push origin main"
+
+echo
+echo "================================================"
+echo "🎉 ALL FILES CREATED SUCCESSFULLY!"
+echo "================================================"
+echo
+echo "Summary of what was created:"
+echo "✓ Task 0: introduction.txt and updated README.md"
+echo "✓ Task 1: feature-update branch with goals.txt"  
+echo "✓ Task 2: Forked repo with your name in contributors"
+echo "✓ Task 3: learning.txt with course reflection"
+echo
+echo "All files are ready - you just need to do the final git operations!"
+echo "Check your repositories at: https://github.com/$GITHUB_USERNAME"
